@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Atividade de Comparação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .linha {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .operador {
+            display: inline-block;
+            width: 30px;
+            text-align: center;
+        }
+        input {
+            width: 100px;
+        }
+        button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="linha">
+        <input type="text" id="val1_eq">
+        <span class="operador">==</span>
+        <input type="text" id="val2_eq">
+        <button onclick="comparar('==', 'val1_eq', 'val2_eq')">Comparar</button>
+    </div>
+    
+    <div class="linha">
+        <input type="text" id="val1_neq">
+        <span class="operador">!=</span>
+        <input type="text" id="val2_neq">
+        <button onclick="comparar('!=', 'val1_neq', 'val2_neq')">Comparar</button>
+    </div>
+    
+    <div class="linha">
+        <input type="text" id="val1_gt">
+        <span class="operador">&gt;</span>
+        <input type="text" id="val2_gt">
+        <button onclick="comparar('>', 'val1_gt', 'val2_gt')">Comparar</button>
+    </div>
+    
+    <div class="linha">
+        <input type="text" id="val1_gte">
+        <span class="operador">&gt;=</span>
+        <input type="text" id="val2_gte">
+        <button onclick="comparar('>=', 'val1_gte', 'val2_gte')">Comparar</button>
+    </div>
+    
+    <div class="linha">
+        <input type="text" id="val1_lt">
+        <span class="operador">&lt;</span>
+        <input type="text" id="val2_lt">
+        <button onclick="comparar('<', 'val1_lt', 'val2_lt')">Comparar</button>
+    </div>
+    
+    <div class="linha">
+        <input type="text" id="val1_lte">
+        <span class="operador">&lt;=</span>
+        <input type="text" id="val2_lte">
+        <button onclick="comparar('<=', 'val1_lte', 'val2_lte')">Comparar</button>
+    </div>
+
+    <script>
+        function comparar(operador, id1, id2) {
+            // Pegamos os valores digitados pelo usuário
+            let v1 = document.getElementById(id1).value;
+            let v2 = document.getElementById(id2).value;
+            
+            // Tentamos converter para número para garantir que comparações matemáticas funcionem (ex: 10 > 2)
+            if (v1 !== "" && !isNaN(v1)) v1 = Number(v1);
+            if (v2 !== "" && !isNaN(v2)) v2 = Number(v2);
+
+            let resultado = false;
+
+            // Verificamos qual operador foi passado e fazemos a comparação
+            if (operador === '==') {
+                resultado = (v1 == v2);
+            } else if (operador === '!=') {
+                resultado = (v1 != v2);
+            } else if (operador === '>') {
+                resultado = (v1 > v2);
+            } else if (operador === '>=') {
+                resultado = (v1 >= v2);
+            } else if (operador === '<') {
+                resultado = (v1 < v2);
+            } else if (operador === '<=') {
+                resultado = (v1 <= v2);
+            }
+
+            // Exibimos o alerta de acordo com o resultado
+            if (resultado) {
+                alert("VERDADEIRO");
+            } else {
+                alert("FALSO");
+            }
+        }
+    </script>
+</body>
+</html>
