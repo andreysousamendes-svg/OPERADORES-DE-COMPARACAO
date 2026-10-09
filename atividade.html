@@ -2,108 +2,95 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Atividade de Comparação</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade - Comparadores</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+        table {
+            border-collapse: collapse;
         }
-        .linha {
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-        }
-        .operador {
-            display: inline-block;
-            width: 30px;
+        td {
+            border: 1px solid #ccc;
+            padding: 4px;
             text-align: center;
         }
-        input {
-            width: 100px;
-        }
-        button {
-            margin-left: 10px;
+        input[type="number"] {
+            width: 80px;
         }
     </style>
 </head>
 <body>
 
-    <div class="linha">
-        <input type="text" id="val1_eq">
-        <span class="operador">==</span>
-        <input type="text" id="val2_eq">
-        <button onclick="comparar('==', 'val1_eq', 'val2_eq')">Comparar</button>
-    </div>
-    
-    <div class="linha">
-        <input type="text" id="val1_neq">
-        <span class="operador">!=</span>
-        <input type="text" id="val2_neq">
-        <button onclick="comparar('!=', 'val1_neq', 'val2_neq')">Comparar</button>
-    </div>
-    
-    <div class="linha">
-        <input type="text" id="val1_gt">
-        <span class="operador">&gt;</span>
-        <input type="text" id="val2_gt">
-        <button onclick="comparar('>', 'val1_gt', 'val2_gt')">Comparar</button>
-    </div>
-    
-    <div class="linha">
-        <input type="text" id="val1_gte">
-        <span class="operador">&gt;=</span>
-        <input type="text" id="val2_gte">
-        <button onclick="comparar('>=', 'val1_gte', 'val2_gte')">Comparar</button>
-    </div>
-    
-    <div class="linha">
-        <input type="text" id="val1_lt">
-        <span class="operador">&lt;</span>
-        <input type="text" id="val2_lt">
-        <button onclick="comparar('<', 'val1_lt', 'val2_lt')">Comparar</button>
-    </div>
-    
-    <div class="linha">
-        <input type="text" id="val1_lte">
-        <span class="operador">&lt;=</span>
-        <input type="text" id="val2_lte">
-        <button onclick="comparar('<=', 'val1_lte', 'val2_lte')">Comparar</button>
-    </div>
+    <table>
+        <!-- Linha do Igual (==) -->
+        <tr>
+            <td><input type="number" id="v1_eq"></td>
+            <td>==</td>
+            <td><input type="number" id="v2_eq"></td>
+            <td><button onclick="comparar('eq')">Comparar</button></td>
+        </tr>
+        <!-- Linha do Diferente (!=) -->
+        <tr>
+            <td><input type="number" id="v1_dif"></td>
+            <td>!=</td>
+            <td><input type="number" id="v2_dif"></td>
+            <td><button onclick="comparar('dif')">Comparar</button></td>
+        </tr>
+        <!-- Linha do Maior (>) -->
+        <tr>
+            <td><input type="number" id="v1_mai"></td>
+            <td>&gt;</td>
+            <td><input type="number" id="v2_mai"></td>
+            <td><button onclick="comparar('mai')">Comparar</button></td>
+        </tr>
+        <!-- Linha do Menor (<) -->
+        <tr>
+            <td><input type="number" id="v1_men"></td>
+            <td>&lt;</td>
+            <td><input type="number" id="v2_men"></td>
+            <td><button onclick="comparar('men')">Comparar</button></td>
+        </tr>
+        <!-- Linha do Maior ou Igual (>=) -->
+        <tr>
+            <td><input type="number" id="v1_maieq"></td>
+            <td>&gt;=</td>
+            <td><input type="number" id="v2_maieq"></td>
+            <td><button onclick="comparar('maieq')">Comparar</button></td>
+        </tr>
+        <!-- Linha do Menor ou Igual (<=) -->
+        <tr>
+            <td><input type="number" id="v1_meneq"></td>
+            <td>&lt;=</td>
+            <td><input type="number" id="v2_meneq"></td>
+            <td><button onclick="comparar('meneq')">Comparar</button></td>
+        </tr>
+    </table>
 
     <script>
-        function comparar(operador, id1, id2) {
-            // Pegamos os valores digitados pelo usuário
-            let v1 = document.getElementById(id1).value;
-            let v2 = document.getElementById(id2).value;
+        function comparar(operacao) {
+            let n1 = parseFloat(document.getElementById('v1_' + operacao).value);
+            let n2 = parseFloat(document.getElementById('v2_' + operacao).value);
             
-            // Tentamos converter para número para garantir que comparações matemáticas funcionem (ex: 10 > 2)
-            if (v1 !== "" && !isNaN(v1)) v1 = Number(v1);
-            if (v2 !== "" && !isNaN(v2)) v2 = Number(v2);
-
-            let resultado = false;
-
-            // Verificamos qual operador foi passado e fazemos a comparação
-            if (operador === '==') {
-                resultado = (v1 == v2);
-            } else if (operador === '!=') {
-                resultado = (v1 != v2);
-            } else if (operador === '>') {
-                resultado = (v1 > v2);
-            } else if (operador === '>=') {
-                resultado = (v1 >= v2);
-            } else if (operador === '<') {
-                resultado = (v1 < v2);
-            } else if (operador === '<=') {
-                resultado = (v1 <= v2);
+            // Validação simples caso o usuário deixe em branco
+            if (isNaN(n1) || !isNaN(n2) === false) {
+                alert("Por favor, digite ambos os valores.");
+                return;
             }
 
-            // Exibimos o alerta de acordo com o resultado
-            if (resultado) {
-                alert("VERDADEIRO");
-            } else {
-                alert("FALSO");
+            let resultado;
+
+            switch(operacao) {
+                case 'eq':    resultado = (n1 == n2); break;
+                case 'dif':   resultado = (n1 != n2); break;
+                case 'mai':   resultado = (n1 > n2); break;
+                case 'men':   resultado = (n1 < n2); break;
+                case 'maieq': resultado = (n1 >= n2); break;
+                case 'meneq': resultado = (n1 <= n2); break;
             }
+
+            // Exibe VERDAEIRO ou FALSO em caixa de alert
+            alert(resultado ? "VERDADEIRO" : "FALSO");
         }
     </script>
+
 </body>
 </html>
